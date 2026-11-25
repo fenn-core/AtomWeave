@@ -27,7 +27,7 @@ template <typename TReal> struct LennardJones
         return x2 * x2 * x2;
     }
 
-    TReal unshifted_potential(const TReal r, const TReal q) const
+    TReal unshifted_potential(const TReal q) const
     {
         return 4 * epsilon * (q * q - q);
     }
@@ -42,7 +42,7 @@ template <typename TReal> struct LennardJones
         : sigma(sigma), epsilon(epsilon), r_c(r_c)
     {
         TReal q_c = pow6(sigma / r_c);
-        cutoff_potential_ = unshifted_potential(r_c, q_c);
+        cutoff_potential_ = unshifted_potential(q_c);
         cutoff_radial_force_ = unshifted_radial_force(r_c, q_c);
     }
 
@@ -50,7 +50,7 @@ template <typename TReal> struct LennardJones
     {
         TReal q = pow6(sigma / r);
 
-        return unshifted_potential(r, q) - cutoff_potential_ +
+        return unshifted_potential(q) - cutoff_potential_ +
             (r - r_c) * cutoff_radial_force_;
     }
 
