@@ -1,0 +1,36 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "release",
+      "displayName": "Release (Main App)",
+      "binaryDir": "${sourceDir}/build/release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "debug",
+      "displayName": "Debug (Tests)",
+      "binaryDir": "${sourceDir}/build/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_FLAGS_DEBUG": "-Og -g"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "build-app",
+      "displayName": "Build AtomWeave (Release)",
+      "configurePreset": "release",
+      "targets": [ "AtomWeave" ]
+    },
+    {
+      "name": "build-tests",
+      "displayName": "Build Tests (Debug)",
+      "configurePreset": "debug",
+      "targets": [ "test_forces", "test_dynamics" ]
+    }
+  ]
+}
