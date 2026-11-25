@@ -47,7 +47,7 @@ template <typename TReal> struct ScalarForceKernel
                 TReal F_y = force_coeff * dy;
                 TReal F_z = force_coeff * dz;
 
-                 state.force.x[i] += F_x;
+                state.force.x[i] += F_x;
                 state.force.y[i] += F_y;
                 state.force.z[i] += F_z;
 

@@ -23,12 +23,19 @@ target_include_directories(AtomWeave PRIVATE
 
 enable_testing()
 
-add_executable(test_forces tests/test_forces.cpp)
-
+add_executable(test_forces tests/test_dynamics.cpp)
 target_include_directories(test_forces PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
         ${CMAKE_CURRENT_SOURCE_DIR}/include/atomweave
         ${CMAKE_CURRENT_SOURCE_DIR}/tests
 )
 
+add_executable(test_dynamics tests/test_dynamics.cpp)
+target_include_directories(test_dynamics PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/atomweave
+        ${CMAKE_CURRENT_SOURCE_DIR}/tests
+)
+
 add_test(NAME forces COMMAND test_forces)
+add_test(NAME dynamics COMMAND test_dynamics)

@@ -59,8 +59,6 @@ template <typename TReal> struct ParticleState
 
     std::size_t size() const
     {
-
-
         return position.x.size();
     }
 
@@ -72,6 +70,26 @@ template <typename TReal> struct ParticleState
         position.x[index] = x;
         position.y[index] = y;
         position.z[index] = z;
+    }
+
+    void set_velocity(std::size_t index, TReal x, TReal y, TReal z)
+    {
+        assert(index < velocity.x.size());
+        assert_consistent_size();
+
+        velocity.x[index] = x;
+        velocity.y[index] = y;
+        velocity.z[index] = z;
+    }
+
+    void set_force(std::size_t index, TReal x, TReal y, TReal z)
+    {
+        assert(index < force.x.size());
+        assert_consistent_size();
+
+        force.x[index] = x;
+        force.y[index] = y;
+        force.z[index] = z;
     }
 };
 
