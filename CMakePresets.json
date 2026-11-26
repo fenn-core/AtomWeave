@@ -1,36 +1,71 @@
+
 {
-  "version": 3,
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
   "configurePresets": [
     {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
       "name": "release",
-      "displayName": "Release (Main App)",
-      "binaryDir": "${sourceDir}/build/release",
+      "inherits": "base",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TESTING": "OFF"
       }
     },
     {
       "name": "debug",
-      "displayName": "Debug (Tests)",
-      "binaryDir": "${sourceDir}/build/debug",
+      "inherits": "base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CXX_FLAGS_DEBUG": "-Og -g"
+        "CMAKE_CXX_FLAGS_DEBUG": "-Og -g",
+        "BUILD_TESTING": "ON"
       }
     }
   ],
   "buildPresets": [
     {
       "name": "build-app",
-      "displayName": "Build AtomWeave (Release)",
       "configurePreset": "release",
-      "targets": [ "AtomWeave" ]
+      "targets": ["AtomWeave"]
     },
     {
       "name": "build-tests",
-      "displayName": "Build Tests (Debug)",
       "configurePreset": "debug",
-      "targets": [ "test_forces", "test_dynamics" ]
+      "targets": ["atomweave_tests"]
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "test-debug",
+      "configurePreset": "debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "test-all",
+      "steps": [
+        { "type": "configure", "name": "debug" },
+        { "type": "build", "name": "build-tests" },
+        { "type": "test", "name": "test-debug" }
+      ]
+    },
+    {
+      "name": "build-release",
+      "steps": [
+        { "type": "configure", "name": "release" },
+        { "type": "build", "name": "build-app" }
+      ]
     }
   ]
 }
