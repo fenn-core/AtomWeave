@@ -49,4 +49,5 @@ if(BUILD_TESTING)
 
     atomweave_add_test(forces)
     atomweave_add_test(dynamics)
+    atomweave_add_test(observables)
 endif()

@@ -126,7 +126,7 @@ int main()
     test::assert_near(numerical_force, analytical_force,
                       "Force-potential derivative consistency", 1e-8, 0.0);
 
-    std::cout << "All force validation tests passed.\n";
+    std::cout << "All force validation tests passed." << std::endl;
 
     return 0;
 }

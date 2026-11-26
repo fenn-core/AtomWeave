@@ -177,7 +177,7 @@ int main()
         std::cout << "Energy conservation test passed.\n";
     }
 
-    std::cout << "All dynamics tests passed.\n";
+    std::cout << "All dynamics tests passed." << std::endl;
 
     return 0;
 }
