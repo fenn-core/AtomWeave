@@ -40,4 +40,33 @@ std::array<TReal, 3> total_momentum(const state::ParticleState<TReal> &state, TR
     return total_momentum;
 }
 
+template <typename TReal>
+TReal temperature(TReal kinetic_energy, std::size_t particle_count)
+{
+    return 2 * kinetic_energy / (3 * static_cast<TReal>(particle_count) - 3);
+}
+
+template <typename TReal> struct Observables
+{
+    TReal kinetic_energy;
+    TReal potential_energy;
+    TReal total_energy;
+    TReal temperature;
+    std::array<TReal, 3> momentum;
+
+    Observables evaluate(state::ParticleState<TReal> &state, TReal mass,
+                         TReal potential_energy_)
+    {
+        Observables observables;
+
+        observables.kinetic_energy = kinetic_energy(state, mass);
+        observables.potential_energy = potential_energy_;
+        observables.total_energy = kinetic_energy + potential_energy_;
+        observables.temperature = temperature(kinetic_energy, state.size());
+        observables.momentum = total_momentum(state, mass);
+
+        return observables;
+    }
+};
+
 } // namespace atomweave::diagnostics
